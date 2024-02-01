@@ -55,4 +55,22 @@ public class Account {
     public boolean canUndo() {
         return !commandHistory.isEmpty();
     }
+
+    public SaveAccount save(String description) {
+        return new SaveAccount(description, this);
+    }
+
+    public void restore(SaveAccount save) {
+        holderName = save.getHolderName();
+        balance.clear();
+        balance.putAll(save.getBalance());
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "holderName='" + holderName + '\'' +
+                ", balance=" + balance +
+                '}';
+    }
 }

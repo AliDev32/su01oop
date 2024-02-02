@@ -10,12 +10,12 @@ class UndoTest {
     @Test
     @DisplayName("Correct result for multiple undo calls")
     void setHolderNameInvalid() {
-        Account acc = new Account("AccName");
+        var acc = new Account("AccName");
         var originalBalance = acc.getBalance();
 
-        acc.setBalance(RUB, 100L);
+        acc.setBalance(RUB, 100);
         acc.setHolderName("Василий Иванов");
-        acc.setBalance(RUB, 300L);
+        acc.setBalance(RUB, 300);
 
         assertEquals(300L, acc.getBalance(RUB));
         assertEquals("Василий Иванов", acc.getHolderName());
@@ -33,9 +33,9 @@ class UndoTest {
     @Test
     @DisplayName("Check undo possibility")
     void canUndo() {
-        Account acc = new Account("AccName");
+        var acc = new Account("AccName");
 
-        acc.setBalance(RUB, 108L);
+        acc.setBalance(RUB, 108);
         assertTrue(acc.canUndo());
 
         acc.undo();
@@ -45,7 +45,7 @@ class UndoTest {
     @Test
     @DisplayName("Error appear when no possible undo")
     void errorOnEmptyUndo() {
-        Account acc = new Account("AccName");
+        var acc = new Account("AccName");
         assertThrows(IllegalStateException.class, acc::undo);
     }
 }

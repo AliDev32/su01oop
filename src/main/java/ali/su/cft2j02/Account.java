@@ -12,6 +12,12 @@ public class Account {
         this.holderName = holderName;
     }
 
+    public Account(SaveAccount save) {
+        saveChecks(save);
+        holderName = save.getHolderName();
+        balance.putAll(save.getBalance());
+    }
+
     public String getHolderName() {
         return holderName;
     }
@@ -31,7 +37,7 @@ public class Account {
         return balance.get(currency);
     }
 
-    public void setBalance(Currency currency, Long balance) {
+    public void setBalance(Currency currency, long balance) {
         if (balance < 0) throw new IllegalArgumentException("Balance cannot be less than zero.");
         if (this.balance.containsKey(currency)) {
             var redoBalance = this.balance.get(currency);
@@ -61,9 +67,14 @@ public class Account {
     }
 
     public void restore(SaveAccount save) {
+        saveChecks(save);
         holderName = save.getHolderName();
         balance.clear();
         balance.putAll(save.getBalance());
+    }
+
+    private void saveChecks(SaveAccount save) {
+        if (save == null) throw new IllegalArgumentException("Save must be not null!");
     }
 
     @Override
